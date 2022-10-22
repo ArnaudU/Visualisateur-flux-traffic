@@ -14,6 +14,7 @@ public class FileReader {
 
     public FileReader(String file){
         readLine(file);
+        checkOctet();
     }
 
     private void readLine(String file){
@@ -60,7 +61,6 @@ public class FileReader {
             }
             octet.remove(octet.size()-1);
             octet.add(lastListOctet);
-            System.out.println(octet);
 		}
 		catch(FileNotFoundException e) {
 			System.out.println("Le fichier n'existe pas");
@@ -73,6 +73,46 @@ public class FileReader {
             System.out.println(e.getMessage());
             System.exit(0);
         }
-        
     }
+    
+    /*
+    Permet de tester si la liste d'octet est en hexadecimal et n'est pas falsifier
+     */
+    private void checkOctet(){
+        int ligne=1;
+        int oc=1;
+        for(String str: octet){
+            for(String o : str.split(" ")){
+                try{
+                    if(!checkHexa(o,ligne)){
+                        throw new FormatInvalidException("Les octets sont falsifie a la ligne "+ligne+ " a l'octet "+oc);
+                    }
+                }
+                catch(FormatInvalidException e) {
+                    System.out.println(e.getMessage());
+                    System.exit(0);
+                }
+                oc++;
+            }
+            ligne++;
+            oc=1;
+        }
+    }
+
+    /*
+     * Permet de tester si un octet est en hexadecimale
+     */
+    private boolean checkHexa(String test,int ligne) throws FormatInvalidException{
+        if(test.length()<=1 ){
+            throw new FormatInvalidException("Il y a un espace ou un hexa en trop de trop a la ligne "+ligne);
+        }
+        char o1 = test.toLowerCase().charAt(0);
+        char o2 = test.toLowerCase().charAt(1);
+        return ((o1>='0' && o1<='9') || (o1>='a' &&  o1<='f')) && ((o2>='0' && o2<='9') || (o2>='a' &&  o2<='f'));
+    }
+
+    public ArrayList<String> getOctet(){
+        return octet;
+    }
+
 }
