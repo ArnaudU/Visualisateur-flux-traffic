@@ -7,3 +7,4 @@ Ce fichier doit pouvoir comprendre la liste des protocoles suivant:
 - Couche 4: TCP
 - Couche 7: HTTP
 
+Le dossier Analysateur de traffic contient tout notre projet.
