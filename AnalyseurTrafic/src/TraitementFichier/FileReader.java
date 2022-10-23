@@ -115,4 +115,7 @@ public class FileReader {
         return octet;
     }
 
+    public String toString(){
+        return octet.toString();
+    }
 }
