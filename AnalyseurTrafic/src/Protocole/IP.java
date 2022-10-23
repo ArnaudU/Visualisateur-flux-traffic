@@ -29,6 +29,8 @@ public class IP extends Protocole{
       ttl = hexToDec(octets.get(8));
       protocole = octets.get(9);
       checksum = octets.get(10)+octets.get(11);      
+      src = hexToDec(octets.get(12))+"."+hexToDec(octets.get(13))+"."+hexToDec(octets.get(14))+"."+hexToDec(octets.get(15));
+      des = hexToDec(octets.get(16))+"."+hexToDec(octets.get(17))+"."+hexToDec(octets.get(18))+"."+hexToDec(octets.get(19));
    }
    
    public String toString(){
@@ -43,6 +45,8 @@ public class IP extends Protocole{
       sb.append("\tTime To Live : "+ttl+"\n");
       sb.append("\tProtocole : "+protocole+"\n");
       sb.append("\tChecksum : "+checksum+"\n");
+      sb.append("\tIP source : "+src+"\n");
+      sb.append("\tIP destination : "+des+"\n");
       return sb.toString();
    }
 }
