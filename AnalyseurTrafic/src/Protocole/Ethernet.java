@@ -40,7 +40,9 @@ public class Ethernet extends Protocole {
 
         //12e a 13e octets
 
-        typeProtocolCode = octets.get(12)+octets.get(13);
+        int j=i+1, k = j+1;
+
+        typeProtocolCode = octets.get(j)+octets.get(k);
 
         if(typeProtocolCode == "0800") typeProtocol = "IPv4";
         if(typeProtocolCode == "86DD") typeProtocol = "IPv6";
