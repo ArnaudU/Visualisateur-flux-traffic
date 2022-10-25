@@ -55,6 +55,14 @@ public class Ethernet extends Protocole {
 
     }
 
+    /**
+     * Rend la chaine de caractere de la forme:
+     * 
+     *  MAC Address Destination : 08:00:XX:XX:XX:XX
+     *  MAC Address Source : 08:00:XX:XX:XX:XX
+     *  Type Protocol : IPv4
+     * 
+     */
     public String toString(){
 
         StringBuilder sb = new StringBuilder();
