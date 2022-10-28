@@ -12,16 +12,16 @@ public class Ethernet extends Protocole {
 
     private String typeProtocolCode;    //12e a 13e octets
     private String typeProtocol;
-
+    private String crc;
 
     /**
      * Constructeur recupere les octets de la trame, analyse les 14 premiers octets
      */
-    public Ethernet(String o){
 
-        super(o,"Ethernet");
-        
-        
+    public Ethernet(String entete){
+
+        super(entete,"Ethernet");
+    
         //0 a 5e octets
 
         for(int i=0; i<4; i++){
@@ -50,6 +50,15 @@ public class Ethernet extends Protocole {
         //en Tout 14 octets de l'entete Ethernet traiter
 
     }
+    /**
+     * Dans le cas ou on a une avec un crc
+     * @param entete
+     * @param enqueue
+     */
+    public Ethernet(String entete, String enqueue){
+        this(entete);
+        crc=enqueue;
+    }
 
     /**
      * Rend la chaine de caractere de la forme:
@@ -66,7 +75,9 @@ public class Ethernet extends Protocole {
         sb.append("\tMAC Address Destination : "+macAddressDest+"\n");
         sb.append("\tMAC Address Source : "+macAddressSrc+"\n");
         sb.append("\tType Protocol : "+typeProtocol+"\n");
-        
+        if(crc!=null){
+            sb.append("\tType crc : "+crc+"\n");
+        }
         return sb.toString();
     }
 
