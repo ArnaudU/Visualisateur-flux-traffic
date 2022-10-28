@@ -1,6 +1,6 @@
 package Protocole;
 
-public class IP extends Protocole{
+public class IPv4 extends Protocole{
 
    private String src;
    private String des;
@@ -14,8 +14,8 @@ public class IP extends Protocole{
    private String offset;
    private String  protocole;
 
-   public IP(String o) {
-      super(o,"IP");
+   public IPv4(String o) {
+      super(o,"IPv4");
       String p1[]= getFourBytes(octets.get(0));
       //4 premier octets
       version =  hexToDec(p1[0]);
@@ -25,7 +25,7 @@ public class IP extends Protocole{
       //4 a 8eme octet
       id = octets.get(4)+octets.get(5);
       offset = octets.get(6)+octets.get(7);
-      //8 a 12 octet
+      //8 a 12 octet²
       ttl = hexToDec(octets.get(8));
       protocole = octets.get(9);
       checksum = octets.get(10)+octets.get(11);      

@@ -1,15 +1,17 @@
+package Protocole;
+
 /**
  * Classe de representation d'une entete Ethernet
  */
 public class Ethernet extends Protocole {
 
     
-    private String macAddressDest;  //0 a 5e octets
+    private String macAddressDest="";  //0 a 5e octets
     
-    private String macAddressSrc;   //6e a 11e octets   //en Tout 14 octets de l'entete Ethernet a traiter
+    private String macAddressSrc="";   //6e a 11e octets   //en Tout 14 octets de l'entete Ethernet a traiter
 
     private String typeProtocolCode;    //12e a 13e octets
-    Private String typeProtocol;
+    private String typeProtocol;
 
 
     /**
@@ -22,36 +24,28 @@ public class Ethernet extends Protocole {
         
         //0 a 5e octets
 
-        int i = 0;
-
-        for(i; i<5; i++){
-            macAddressDest = octets.get(i)+":";
+        for(int i=0; i<4; i++){
+            macAddressDest += octets.get(i)+":";
         }
-        i++;
-        macAddressDest = octets.get(i); //ajout du 5e sans les ":" a la fin
+        macAddressDest += octets.get(5); //ajout du 5e sans les ":" a la fin
 
         //6e a 11e octets
 
-        for(i; i<11; i++){
-            macAddressSrc = octets.get(i)+":";
+        for(int i=5; i<10; i++){
+            macAddressSrc += octets.get(i)+":";
         }
-        i++;
-        macAddressSrc = octets.get(i); //ajout du 11e sans les ":" a la fin
+        macAddressSrc += octets.get(11); //ajout du 11e sans les ":" a la fin
 
         //12e a 13e octets
-
-        int j=i+1, k = j+1;
-
-        typeProtocolCode = octets.get(j)+octets.get(k);
-
-        if(typeProtocolCode == "0800") typeProtocol = "IPv4";
-        if(typeProtocolCode == "86DD") typeProtocol = "IPv6";
-        if(typeProtocolCode == "0806") typeProtocol = "ARP";
-        if(typeProtocolCode == "8035") typeProtocol = "RARP";
-        if(typeProtocolCode == "809B") typeProtocol = "AppleTalk";
-        if(typeProtocolCode == "88CD") typeProtocol = "SRECOS III";
-        if(typeProtocolCode == "0600") typeProtocol = "XNS";
-        if(typeProtocolCode == "8100") typeProtocol = "VLAN";
+        typeProtocolCode = octets.get(12)+octets.get(13);
+        if(typeProtocolCode.equalsIgnoreCase("0800")) typeProtocol = "IPv4";
+        if(typeProtocolCode.equalsIgnoreCase("86DD")) typeProtocol = "IPv6";
+        if(typeProtocolCode.equalsIgnoreCase("0806")) typeProtocol = "ARP";
+        if(typeProtocolCode.equalsIgnoreCase("8035")) typeProtocol = "RARP";
+        if(typeProtocolCode.equalsIgnoreCase("809B")) typeProtocol = "AppleTalk";
+        if(typeProtocolCode.equalsIgnoreCase("88CD")) typeProtocol = "SRECOS III";
+        if(typeProtocolCode.equalsIgnoreCase("0600")) typeProtocol = "XNS";
+        if(typeProtocolCode.equalsIgnoreCase("8100")) typeProtocol = "VLAN";
 
         //en Tout 14 octets de l'entete Ethernet traiter
 
