@@ -1,0 +1,12 @@
+.Faire les unitest de toute les classes (a part les classes exceptions):
+    Dans les unitest on doit :
+        -Gerer les exceptions
+        -Voir si chaque attribut des protocoles donne le bon resultat
+        -Voir si le fileReader lit bien tout les octets
+        ...
+
+.Faire la classe TCP 
+.Faire la classe UDP
+.Faire la classe HTTP
+.Ajouter les protocoles a faire dans FacadeTrame
+.Commence l'interface graphique
