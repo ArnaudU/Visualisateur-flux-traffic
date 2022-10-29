@@ -26,6 +26,17 @@ public abstract class Protocole {
     }
 
     /*
+     * Converti les octets en hexa
+     * @param indice de l'octets dans la trame
+     * 
+     */
+    public int hexToDec(int index){
+        String hex=get(index);
+        int dec=-1;
+        dec = Integer.parseInt(hex,16);
+        return dec;
+    }
+    /*
      * Convertie les octets en decimale en hexa
      */
     public String decToHex(int dec){
@@ -47,6 +58,10 @@ public abstract class Protocole {
             i++;
         }
         return s;
+    }
+
+    public String get(int index){
+        return octets.get(index);
     }
 
     public String toString(){

@@ -15,7 +15,7 @@ public class IPv4 extends Protocole{
    private String  protocole;
    private String protocoleNom;
 
-   public IPv4(String o) {
+   public IPv4(String o) throws OctetInvalidException {
       super(o,"IPv4");
       String p1[]= getFourBytes(get(0));
       //4 premier octets
@@ -36,7 +36,7 @@ public class IPv4 extends Protocole{
       des = hexToDec(get(16))+"."+hexToDec(get(17))+"."+hexToDec(get(18))+"."+hexToDec(get(19));
    }
 
-   private void setProtocoleNom(){
+   private void setProtocoleNom() throws OctetInvalidException{
       if(protocole.equalsIgnoreCase("01"))protocoleNom="ICMP";
       if(protocole.equalsIgnoreCase("02"))protocoleNom="IGMP";
       if(protocole.equalsIgnoreCase("06"))protocoleNom="TCP";
@@ -45,12 +45,33 @@ public class IPv4 extends Protocole{
       if(protocole.equalsIgnoreCase("17"))protocoleNom="UDP";
       if(protocole.equalsIgnoreCase("36"))protocoleNom="XTP";
       if(protocole.equalsIgnoreCase("46"))protocoleNom="RSVP";
+      if(protocoleNom==null){
+         throw new OctetInvalidException("Le type du protocol apres la couche 3(ipv4) n'existe pas!");
+      }
    }
 
-   private String get(int index){
-      return octets.get(index);
+   /*
+   * Verifie si la prochaine couche est TCP
+   */
+   public boolean nextIsTCP(){
+      return protocoleNom.equalsIgnoreCase("TCP");
    }
    
+   /*
+   * Verifie si la prochaine couche est UDP
+   */
+   public boolean nextIsUDP(){
+      return protocoleNom.equalsIgnoreCase("UDP");
+   }
+   
+   public String getNextProtocol(){
+      return protocoleNom;
+   }
+
+   public int getLength(){
+      return headerLength*4;
+   }
+
    public String toString(){
       StringBuilder sb = new StringBuilder();
       sb.append(super.toString());

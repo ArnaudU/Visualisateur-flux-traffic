@@ -50,7 +50,10 @@ public class FileReader {
                     }
                 }
                 String getOctet=line.substring(sizeMinOctet, sizeMaxOctet);
-                octet.add(getOctet);
+                String [] s = getOctet.split(" ");
+                for(int i =0;i<s.length;i++ ){
+                    octet.add(s[i]);
+                }
                 ligne++;
             }
             //Ici on enleve les espaces engendre par le dernier octet
@@ -60,7 +63,10 @@ public class FileReader {
                 //System.out.println(lastListOctet);
             }
             octet.remove(octet.size()-1);
-            octet.add(lastListOctet);
+            String [] s = lastListOctet.split(" ");
+            for(int i =0;i<s.length;i++ ){
+                octet.add(s[i]);
+            }
 		}
 		catch(FileNotFoundException e) {
 			System.out.println("Le fichier n'existe pas");
