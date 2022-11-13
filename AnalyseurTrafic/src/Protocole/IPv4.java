@@ -17,7 +17,7 @@ public class IPv4 extends Protocole{
 
    public IPv4(String o) throws OctetInvalidException {
       super(o,"IPv4");
-      String p1[]= getFourBytes(get(0));
+      String p1[]= getBytes(get(0));
       //4 premier octets
       version =  hexToDec(p1[0]);
       headerLength = hexToDec(p1[1])*4;
@@ -55,13 +55,6 @@ public class IPv4 extends Protocole{
    */
    public boolean nextIsTCP(){
       return protocoleNom.equalsIgnoreCase("TCP");
-   }
-   
-   /*
-   * Verifie si la prochaine couche est UDP
-   */
-   public boolean nextIsUDP(){
-      return protocoleNom.equalsIgnoreCase("UDP");
    }
    
    public String getNextProtocol(){

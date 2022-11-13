@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class FileReader {
-    private ArrayList<String> octet= new ArrayList<>() ; // Correspond au octet dans le fichier
+    private ArrayList<ArrayList<String>> octets= new ArrayList<>() ; // Correspond au octet dans le fichier
 
     public FileReader(String file) throws IOException, FormatInvalidException{
         readLine(file);
@@ -27,7 +27,27 @@ public class FileReader {
                         new FileInputStream(new File(file)))));
         
         String line;
+        ArrayList<String> octet=new ArrayList<>();
         while((line = br.readLine())!= null){
+            if(line.length()==0){
+                continue;
+            }
+            if(line.subSequence(0, 4).equals("0000")){
+                if(octet.size()!=0){
+                    //Ici on enleve les espaces engendre par le dernier octet
+                    String lastListOctet=octet.get(octet.size()-1);
+                    while(lastListOctet.charAt(lastListOctet.length()-1)==' '){
+                        lastListOctet=lastListOctet.substring(0, lastListOctet.length()-1);
+                    }
+                    octet.remove(octet.size()-1);
+                    String [] s = lastListOctet.split(" ");
+                    for(int i =0;i<s.length;i++ ){
+                        octet.add(s[i]);
+                    }
+                }
+                octet=new ArrayList<>();
+                octets.add(octet);
+            }
             if(line.length()<sizeMaxOctet){
                 //Le cas ou il manque des octets et non la position des octets 
                 if(line.length()>=sizeMinOctet ){
@@ -58,7 +78,6 @@ public class FileReader {
         String lastListOctet=octet.get(octet.size()-1);
         while(lastListOctet.charAt(lastListOctet.length()-1)==' '){
             lastListOctet=lastListOctet.substring(0, lastListOctet.length()-1);
-            //System.out.println(lastListOctet);
         }
         octet.remove(octet.size()-1);
         String [] s = lastListOctet.split(" ");
@@ -74,21 +93,23 @@ public class FileReader {
     private void checkOctet(){
         int ligne=1;
         int oc=1;
-        for(String str: octet){
-            for(String o : str.split(" ")){
-                try{
-                    if(!checkHexa(o,ligne)){
-                        throw new FormatInvalidException("Les octets sont falsifie a la ligne "+ligne+ " a l'octet "+oc);
+        for(ArrayList<String> octet : octets){
+            for(String str: octet){
+                for(String o : str.split(" ")){
+                    try{
+                        if(!checkHexa(o,ligne)){
+                            throw new FormatInvalidException("Les octets sont falsifie a la ligne "+ligne+ " a l'octet "+oc);
+                        }
                     }
+                    catch(FormatInvalidException e) {
+                        System.out.println(e.getMessage());
+                        System.exit(0);
+                    }
+                    oc++;
                 }
-                catch(FormatInvalidException e) {
-                    System.out.println(e.getMessage());
-                    System.exit(0);
-                }
-                oc++;
+                ligne++;
+                oc=1;
             }
-            ligne++;
-            oc=1;
         }
     }
 
@@ -104,11 +125,21 @@ public class FileReader {
         return ((o1>='0' && o1<='9') || (o1>='a' &&  o1<='f')) && ((o2>='0' && o2<='9') || (o2>='a' &&  o2<='f'));
     }
 
-    public ArrayList<String> getOctet(){
-        return octet;
+    public ArrayList<String> getOctet(int i){
+        return octets.get(i);
     }
 
+    public ArrayList<ArrayList<String>> getOctet(){
+        return octets;
+    }
     public String toString(){
-        return octet.toString();
+        String s="";
+        for(ArrayList<String> octet : octets){
+            for(String str: octet){
+                s+=str+" ";
+            }
+            s+="\n";
+        }
+        return s;
     }
 }

@@ -1,27 +1,29 @@
 package InterfaceGraphique;
 
 
+import java.awt.Color;
+
 import javax.swing.*;
 
 
-public class Fenetre extends JFrame {
+public class FenetreInit extends JFrame {
     public JPanel container;
     public JButton btnFind;
     private JTextField txt_path;
     private JTextArea txt_output;
-    public JButton btnCopy;
+    public JButton btnDetail;
     public JButton btnStart;
     public JButton btnSave;
     private static final int WIDTH = 600;
     private static final int HEIGHT = 400;
 
-    public Fenetre(){
+    public FenetreInit(){
         super();
         initWindow();
         initInputTextFiled();
         initBtnPath();
         initOutputArea();
-        initBtnCopy();
+        initBtnDetails();
         initBtnStart();
         initBtnSave();
     
@@ -34,6 +36,7 @@ public class Fenetre extends JFrame {
         this.setTitle("AnalyseurTrafic"); 
         container = new JPanel();
         this.setContentPane(container);
+        this.setBackground(Color.BLACK);
         container.setLayout(null);
     }
 
@@ -70,7 +73,7 @@ public class Fenetre extends JFrame {
         this.txt_output.setText("");
     }
 
-    public Fenetre appendOutput(String text){
+    public FenetreInit appendOutput(String text){
         this.txt_output.append(text);
         return this;
     }
@@ -79,11 +82,11 @@ public class Fenetre extends JFrame {
         return this.txt_output.getText();
     }
 
-    private void initBtnCopy(){
-        btnCopy = new JButton();
-        btnCopy.setBounds(100,310,100,35);
-        btnCopy.setText("Copy");
-        container.add(btnCopy);
+    private void initBtnDetails(){
+        btnDetail = new JButton();
+        btnDetail.setBounds(100,310,100,35);
+        btnDetail.setText("details");
+        container.add(btnDetail);
     }
 
     private void initBtnStart(){

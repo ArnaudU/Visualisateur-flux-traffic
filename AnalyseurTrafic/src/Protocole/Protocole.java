@@ -44,13 +44,13 @@ public abstract class Protocole {
     }
     
     /*
-     * Donne seulement les 4 bytes(en hexa) d'un octet c'est a dire un hexa
+     * Donne seulement les 4 bits(en hexa) d'un octet c'est a dire un hexa
      * @return un tableau 
      * Exemple : 
      *          getFourBytes("AF")->[A,F]
      * Pas besoin d'exception car elles sont deja traites auparavant, dans la classe FileReader
      */
-    public String[] getFourBytes(String octet){
+    public String[] getBytes(String octet){
         String s[] = new String[octet.length()];
         int i=0;
         for(char c : octet.toCharArray()){
@@ -60,8 +60,37 @@ public abstract class Protocole {
         return s;
     }
 
+    public String hexToBinary(String octet){
+        String s="";
+        String[] tab=getBytes(octet);
+        for(String parcours:tab){
+            int val = hexToDec(parcours);
+            s+=Integer.toBinaryString(val);
+        }
+        if(s.length()!=octet.length()*4){
+            String zero="";
+            for(int i=0;i<octet.length()*4-s.length();i++){
+                zero+="0";
+            }
+            s=zero+s;
+        }
+        return s;
+    }
+
+    public int binaryToDec(String binary){
+        return Integer.parseInt(binary,2);
+    }
+
     public String get(int index){
         return octets.get(index);
+    }
+
+    public String get(int firstIndex,int endIndex){
+        String s="";
+        for(int i=firstIndex;i<endIndex;i++){
+            s+=octets.get(i);
+        }
+        return s;
     }
 
     public String toString(){

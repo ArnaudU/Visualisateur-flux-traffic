@@ -11,19 +11,20 @@ import TraitementFichier.FileReader;
 import java.awt.event.ActionEvent;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.util.ArrayList;
 
 public class FenetreEnCours {
-    Fenetre window;
+    FenetreInit window;
 
     public FenetreEnCours() {
-        window = new Fenetre();
-        window.btnFind.addActionListener(this::findButton);
+        window = new FenetreInit();
+        window.btnFind.addActionListener(this::pathButton);
         window.btnStart.addActionListener(this::startButton);
         window.btnSave.addActionListener(this::saveButton);
     }
 
-    private void findButton(ActionEvent e) {
-//        JOptionPane.showMessageDialog(null, "Ton message");
+    private void pathButton(ActionEvent e) {
+        //JOptionPane.showMessageDialog(null, "Ton message");
         JFileChooser fileChooser = new JFileChooser();
         //file name filter
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Text file","txt");
@@ -37,13 +38,18 @@ public class FenetreEnCours {
     
     private void startButton(ActionEvent e){
         String path = window.getPath();
+        int i=1;
         try{
             if(!path.isEmpty()){
                 window.clearOutput(); 
                 FileReader file = new FileReader(path);
-                FacadeTrame ftrame= new FacadeTrame(file.getOctet());
-                window.appendOutput(ftrame.toString());
-            }else{
+                for(ArrayList<String> octet :file.getOctet()){
+                    FacadeTrame ft = new FacadeTrame(i,octet);
+                    window.appendOutput(ft.toString());
+                    i++;
+                }
+            }
+            else{
                 window.appendOutput("File path - Error");
             }
         }

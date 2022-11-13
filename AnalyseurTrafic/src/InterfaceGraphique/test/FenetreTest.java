@@ -1,10 +1,10 @@
 package InterfaceGraphique.test;
 
-import InterfaceGraphique.Fenetre;
+import InterfaceGraphique.FenetreInit;
 
 public class FenetreTest {
     public static void main(String[] args) {
-        Fenetre f = new Fenetre();
+        FenetreInit f = new FenetreInit();
         f.start();
     }
 }
