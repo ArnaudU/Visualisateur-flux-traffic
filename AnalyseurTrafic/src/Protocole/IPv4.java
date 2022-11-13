@@ -105,7 +105,8 @@ public class IPv4 extends Protocole{
       }
 
       //Reserved bit
-      s+="\t..."+binary.charAt(3)+" "+binary.substring(4)+" = Fragment Offset: ";
+      int i = binaryToDec(binary.charAt(3)+hexToBinary(offset).substring(4));
+      s+="\t..."+binary.charAt(3)+" "+hexToBinary(offset).substring(4)+" = Fragment Offset: "+i;
       
       return s;
    }
@@ -117,7 +118,7 @@ public class IPv4 extends Protocole{
       sb.append("\tLength Header : "+headerLength+" octets\n");
       sb.append("\tType Service : "+typeService+"\n");
       sb.append("\tTotal length : "+lengthTotal+"\n");
-      sb.append("\tIdentification : 0x"+id+" ("+hexToDec(id)+")\n");
+      sb.append("\tIdentification : 0x"+hexToDec(id)+" ("+id+")\n");
       sb.append("\tFlags : 0x"+flagHex+"\n");
       sb.append(flag+"\n");
       sb.append("\tTime To Live : "+ttl+"\n");
