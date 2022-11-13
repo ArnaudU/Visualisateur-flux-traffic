@@ -24,7 +24,6 @@ public class FenetreInit extends JFrame {
         initOutputArea();
         initBtnDetails();
         initBtnStart();
-        System.out.println(w);
         initBtnSave();
     }
 

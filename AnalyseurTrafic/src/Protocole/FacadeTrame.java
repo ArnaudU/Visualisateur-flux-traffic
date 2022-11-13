@@ -9,7 +9,7 @@ public class FacadeTrame {
     private Ethernet eth;
     private IPv4 ipv4;
     private TCP tcp;
-    private HTTP http;
+    //private HTTP http;
 
     /*
      * c'est une facade de la trame qui permet de regrouper tout les protocoles;
@@ -43,6 +43,7 @@ public class FacadeTrame {
         //Faire pour TCP et HTTP
         e=subList(index, index+20);
         tcp=new TCP(ip);
+        index+= tcp.getLentgh();
     }
 
     /*

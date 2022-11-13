@@ -60,19 +60,26 @@ public abstract class Protocole {
         return s;
     }
 
+    /*
+     * Convertit des octets en binaire
+     * @return un String codee en binaire (suite de 1 et 0)
+     * Exemple : 
+     *          hexToBinary("a9")->"10101001"
+     */
     public String hexToBinary(String octet){
         String s="";
         String[] tab=getBytes(octet);
         for(String parcours:tab){
             int val = hexToDec(parcours);
-            s+=Integer.toBinaryString(val);
-        }
-        if(s.length()!=octet.length()*4){
-            String zero="";
-            for(int i=0;i<octet.length()*4-s.length();i++){
-                zero+="0";
+            String bin = Integer.toBinaryString(val);
+            if(bin.length()<4){
+                String zero="";
+                for(int i=0;i<4-bin.length();i++){
+                    zero+="0";
+                }
+                bin=zero+bin;
             }
-            s=zero+s;
+            s=s+bin;
         }
         return s;
     }
