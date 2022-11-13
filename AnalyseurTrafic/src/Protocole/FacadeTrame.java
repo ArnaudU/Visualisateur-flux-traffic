@@ -42,7 +42,7 @@ public class FacadeTrame {
         index+=lengthIPv4;
         //Faire pour TCP et HTTP
         e=subList(index, index+20);
-        tcp=new TCP(ip,e);
+        tcp=new TCP(ip);
     }
 
     /*
