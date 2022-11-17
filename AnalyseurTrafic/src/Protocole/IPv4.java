@@ -72,8 +72,6 @@ public class IPv4 extends Protocole{
    public String flag(){
       String s = "";
       String binary = hexToBinary(flagHex);
-      //System.out.println(flagHex);
-      System.out.println(binary);
       //Reserved bit
       s+="\t\t"+binary.charAt(0)+"... .... = Reserved bit: ";
       if(binary.charAt(0)=='1'){
@@ -109,6 +107,14 @@ public class IPv4 extends Protocole{
       s+="\t..."+binary.charAt(3)+" "+hexToBinary(offset).substring(4)+" = Fragment Offset: "+i;
       
       return s;
+   }
+
+   public String getSrc(){
+      return ""+src;
+   }
+
+   public String getDest(){
+      return ""+des;
    }
 
    public String toString(){

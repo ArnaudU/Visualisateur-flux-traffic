@@ -148,6 +148,18 @@ public class TCP extends Protocole{
         return thl;
     }
 
+    public String getFiabilityContainer(){
+        return fiabilityContainer;
+    }
+
+
+    /*
+     * Pour savoir s'il y a le protocole http  est a la suite
+     */
+    public boolean hasNext(){
+        return false;
+    }
+
     public String toString(){
       StringBuilder sb = new StringBuilder();
       sb.append(super.toString());

@@ -9,7 +9,7 @@ public class FacadeTrame {
     private Ethernet eth;
     private IPv4 ipv4;
     private TCP tcp;
-    //private HTTP http;
+    private HTTP http;
 
     /*
      * c'est une facade de la trame qui permet de regrouper tout les protocoles;
@@ -59,9 +59,25 @@ public class FacadeTrame {
     }
 
     /*
+     * Pour creer une table dans l'interface
+     */
+    public String[] getData(int i){
+        String protocol = "";
+        if(http==null){
+            protocol="TCP";
+        }
+        else{
+            protocol="HTTP";
+        }
+        String[] res = {""+i,ipv4.getSrc(),ipv4.getDest(),protocol,""+octets.size(),"A COMPLETER"};
+        return res; 
+    }
+
+    /*
      * affiche tout les protocoles
      */
     public String toString(){
         return "TRAME "+id+"\n\n"+eth.toString()+"\n"+ipv4.toString()+"\n"+tcp.toString()+"\n"/*+http.toString()*/+"----------------------------------------------------------------------------------------------------------------------------------------------------\n\n";
     }
+
 }

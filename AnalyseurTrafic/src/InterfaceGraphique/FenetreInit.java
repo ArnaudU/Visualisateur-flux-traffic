@@ -2,15 +2,16 @@ package InterfaceGraphique;
 
 import javax.swing.*;
 
-
 public class FenetreInit extends JFrame {
     public JPanel container;
     public JButton btnFind;
-    private JTextField txt_path;
-    private JTextArea txt_output;
+    private JTextField txtPath;
+    private JTextArea txtOutput;
     public JButton btnDetail;
     public JButton btnStart;
     public JButton btnSave;
+    public JTable table;
+    private JScrollPane scrollPane;
     private static final int WIDTH = 900;
     private static final int HEIGHT = 650;
     private double w=(double)WIDTH/600.0;
@@ -21,7 +22,7 @@ public class FenetreInit extends JFrame {
         initWindow();
         initInputTextFiled();
         initBtnPath();
-        initOutputArea();
+        //initOutputArea();
         initBtnDetails();
         initBtnStart();
         initBtnSave();
@@ -38,17 +39,17 @@ public class FenetreInit extends JFrame {
     }
 
     private void initInputTextFiled(){
-        txt_path = new JTextField();
-        txt_path.setBounds((int)(30*w), (int)(20*h), (int)(440*w), (int)(30*h));
-        container.add(txt_path);
+        txtPath = new JTextField();
+        txtPath.setBounds((int)(30*w), (int)(20*h), (int)(440*w), (int)(30*h));
+        container.add(txtPath);
     }
 
     public void setPath(String path){
-        this.txt_path.setText(path);
+        this.txtPath.setText(path);
     }
 
     public String getPath(){
-        return this.txt_path.getText();
+        return this.txtPath.getText();
     }
 
     private void initBtnPath(){
@@ -58,25 +59,17 @@ public class FenetreInit extends JFrame {
         container.add(btnFind);
     }
 
-    private void initOutputArea(){
-        txt_output = new JTextArea();
-        txt_output.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(txt_output);
-        scrollPane.setBounds((int)(22*w), (int)(60*h), (int)(556*w), (int)(240*h));
-        container.add(scrollPane);
-    }
-
     public void clearOutput(){
-        this.txt_output.setText("");
+        this.txtOutput.setText("");
     }
 
     public FenetreInit appendOutput(String text){
-        this.txt_output.append(text);
+        this.txtOutput.append(text);
         return this;
     }
 
     public String getResult(){
-        return this.txt_output.getText();
+        return this.txtOutput.getText();
     }
 
     private void initBtnDetails(){
@@ -107,8 +100,39 @@ public class FenetreInit extends JFrame {
         JOptionPane.ERROR_MESSAGE);
     }
 
+    public JTable getTable(){
+        return table;
+    }
+
+    public JScrollPane getScrollPane(){
+        return scrollPane;
+    }
+
+    public JTextArea getTxtOutput(){
+        return txtOutput;
+    }
+
+    public void setTxtOutput(JTextArea t){
+        txtOutput=t;
+    }
+    
+    public void removeScrollPaneFromeContainer(){
+        container.remove(scrollPane);
+    }
     public void start(){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+    }
+
+    public double getW(){
+        return w;
+    }
+
+    public double getH(){
+        return h;
+    }
+
+    public void setScrollPane(JScrollPane scrollPane2) {
+        scrollPane=scrollPane2;
     }
 }
