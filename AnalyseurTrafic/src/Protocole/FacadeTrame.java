@@ -41,9 +41,12 @@ public class FacadeTrame {
         }
         index+=lengthIPv4;
         //Faire pour TCP et HTTP
-        e=subList(index, index+20);
-        tcp=new TCP(ip);
-        index+= tcp.getLentgh();
+        e=subList(index+1, index+20);
+        tcp=new TCP(e);
+        index+= tcp.getLength();
+        if(index!=octets.size()){
+            http =new HTTP(subList(index, octets.size()-1));
+        }
     }
 
     /*
@@ -63,13 +66,15 @@ public class FacadeTrame {
      */
     public String[] getData(int i){
         String protocol = "";
+        String info = "";
         if(http==null){
             protocol="TCP";
         }
         else{
             protocol="HTTP";
+            info += http.info();
         }
-        String[] res = {""+i,ipv4.getSrc(),ipv4.getDest(),protocol,""+octets.size(),"A COMPLETER"};
+        String[] res = {""+i,ipv4.getSrc(),ipv4.getDest(),protocol,""+octets.size(),info};
         return res; 
     }
 
@@ -77,7 +82,12 @@ public class FacadeTrame {
      * affiche tout les protocoles
      */
     public String toString(){
-        return "TRAME "+id+"\n\n"+eth.toString()+"\n"+ipv4.toString()+"\n"+tcp.toString()+"\n"/*+http.toString()*/+"----------------------------------------------------------------------------------------------------------------------------------------------------\n\n";
+        StringBuilder bf = new StringBuilder();
+        bf.append("TRAME "+id+"\n\n"+eth.toString()+"\n"+ipv4.toString()+"\n"+tcp.toString()+"\n");
+        if(http!=null){
+            bf.append(http.toString());
+        }
+        return bf.toString();
     }
 
 }

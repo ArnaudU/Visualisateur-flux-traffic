@@ -66,7 +66,7 @@ public class IPv4 extends Protocole{
    }
 
    public int getLength(){
-      return headerLength*4;
+      return headerLength;
    }
 
    public String flag(){

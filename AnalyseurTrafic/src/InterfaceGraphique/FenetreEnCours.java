@@ -7,7 +7,7 @@ import javax.swing.JScrollPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
-
+import java.awt.Font;
 import Protocole.FacadeTrame;
 import Protocole.OctetInvalidException;
 import Protocole.ProtocoleInvalidException;
@@ -76,6 +76,7 @@ public class FenetreEnCours {
         try {window.removeScrollPaneFromeContainer();}
         catch(NullPointerException e){}
         JTextArea txtOutput = new JTextArea();
+        txtOutput.setFont(new Font("Arial",5,16));
         txtOutput.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(txtOutput);
         double w = window.getW();

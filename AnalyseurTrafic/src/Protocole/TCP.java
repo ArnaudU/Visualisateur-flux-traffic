@@ -144,7 +144,7 @@ public class TCP extends Protocole{
         return s;
     }
 
-    public int getLentgh(){
+    public int getLength(){
         return thl;
     }
 
