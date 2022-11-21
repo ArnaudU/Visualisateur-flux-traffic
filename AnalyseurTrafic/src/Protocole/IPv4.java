@@ -145,7 +145,7 @@ public class IPv4 extends Protocole{
             write+="RR : \n";
             int j=1;
             while(4*j<length){
-               write+= "\t\t\tRouteur "+j+" : "+getIP(i+(j*4));
+               write+= "\t\t\t"+j+" : "+getIP(i+(j*4)+2);
                if(4*(j+1)<length){
                   write+="\n";
                }
@@ -154,7 +154,7 @@ public class IPv4 extends Protocole{
          }
          else{
             if(type.equalsIgnoreCase("00")){
-               write+="EOOL!\n";
+               write+="EOOL\n" ;
                options.add(write);
                break;
             }
