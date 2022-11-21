@@ -44,7 +44,7 @@ public class FacadeTrame {
         e=subList(index+1, index+20);
         tcp=new TCP(e);
         index+= tcp.getLength();
-        if(index!=octets.size()){
+        if(index+1<octets.size()){
             http =new HTTP(subList(index, octets.size()-1));
         }
     }
@@ -69,6 +69,7 @@ public class FacadeTrame {
         String info = "";
         if(http==null){
             protocol="TCP";
+            info+=tcp.essential();
         }
         else{
             protocol="HTTP";
@@ -87,6 +88,9 @@ public class FacadeTrame {
         if(http!=null){
             bf.append(http.toString());
         }
+        bf.append("\n");
+        bf.append("-----------------------------------------------------------------------------------------------------------");
+        bf.append("\n\n");
         return bf.toString();
     }
 

@@ -101,6 +101,10 @@ public abstract class Protocole {
     }
 
     public String toString(){
-        return "Protocole : "+name + "\n";
+        return "Protocole : "+name + "\n\n";
+    }
+
+    public int size(){
+        return octets.size();
     }
 }

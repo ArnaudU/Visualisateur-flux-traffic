@@ -144,6 +144,9 @@ public class TCP extends Protocole{
         return s;
     }
 
+    /*
+     * Retourne la taille du protocol
+     */
     public int getLength(){
         return thl;
     }
@@ -152,12 +155,22 @@ public class TCP extends Protocole{
         return fiabilityContainer;
     }
 
-
     /*
      * Pour savoir s'il y a le protocole http  est a la suite
      */
     public boolean hasNext(){
         return false;
+    }
+
+    public String essential(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(port_src + " -> " + port_dest+" " );
+        sb.append("["+fiabilityContainer+"]");
+        sb.append(" Seq="+0);
+        sb.append(" Ack="+0);
+        sb.append(" Win="+window);
+        sb.append(" Len="+0);
+        return sb.toString();
     }
 
     public String toString(){

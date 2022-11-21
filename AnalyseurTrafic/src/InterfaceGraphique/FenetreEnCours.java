@@ -59,12 +59,19 @@ public class FenetreEnCours {
             JTable table = window.getTable();
             table = new JTable(data,title);
             table.setEnabled(false);
+            table.setRowHeight(30);
             JScrollPane scrollPane = window.getScrollPane();
-            scrollPane = new JScrollPane(table);
+            scrollPane = new JScrollPane(table,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             double w = window.getW();
             double h = window.getH();
-            scrollPane.setBounds((int)(22*w), (int)(60*h), (int)(556*w), (int)(240*h));
             window.setScrollPane(scrollPane);
+            scrollPane.setBounds((int)(22*w), (int)(60*h), (int)(556*w), (int)(240*h));
+            int cpt=0;
+            for(int j=0;j<title.length-1;j++){
+                cpt+=table.getColumnModel().getColumn(j).getWidth();
+            }
+            table.getColumnModel().getColumn(title.length-1).setPreferredWidth((int)(556*w-(w*22+cpt)));
             window.container.add(scrollPane);
         }
         catch(Exception exc){
@@ -112,7 +119,6 @@ public class FenetreEnCours {
 
     private void detailsButton(ActionEvent e){
         try{
-
             if(window.btnDetail.getText().equals("Details")){
                 if(filereader!=null){
                     if(window.getTxtOutput()!=null){

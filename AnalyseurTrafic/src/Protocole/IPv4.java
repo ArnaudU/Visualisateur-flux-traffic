@@ -1,5 +1,8 @@
 package Protocole;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class IPv4 extends Protocole{
 
    private String src;
@@ -16,6 +19,7 @@ public class IPv4 extends Protocole{
    private String flag;
    private String  protocole;
    private String protocoleNom;
+   private List<String> options = new ArrayList<>();
 
    public IPv4(String o) throws OctetInvalidException {
       super(o,"IPv4");
@@ -35,11 +39,17 @@ public class IPv4 extends Protocole{
       protocole = get(9);
       setProtocoleNom();
       checksum = get(10)+get(11);      
-      src = hexToDec(get(12))+"."+hexToDec(get(13))+"."+hexToDec(get(14))+"."+hexToDec(get(15));
-      des = hexToDec(get(16))+"."+hexToDec(get(17))+"."+hexToDec(get(18))+"."+hexToDec(get(19));
+      src = getIP(12);
+      des = getIP(16);
       flag=flag();
+      if(lengthTotal>20 && size()>20){
+         setOption();
+      }
    }
 
+   /*
+    * Permet de savoir quel est le nom du prochain protocole
+    */
    private void setProtocoleNom() throws OctetInvalidException{
       if(protocole.equalsIgnoreCase("01"))protocoleNom="ICMP";
       if(protocole.equalsIgnoreCase("02"))protocoleNom="IGMP";
@@ -50,7 +60,7 @@ public class IPv4 extends Protocole{
       if(protocole.equalsIgnoreCase("36"))protocoleNom="XTP";
       if(protocole.equalsIgnoreCase("46"))protocoleNom="RSVP";
       if(protocoleNom==null){
-         throw new OctetInvalidException("Le type du protocol apres la couche 3(ipv4) n'existe pas!");
+         throw new OctetInvalidException("Le type du protocol apres la couche 3(ipv4) n'existe probablement pas!");
       }
    }
 
@@ -69,6 +79,9 @@ public class IPv4 extends Protocole{
       return headerLength;
    }
 
+   /*
+    * Retourne sous forme de wireshark le binaire des flag dans la couche ipv4
+    */
    public String flag(){
       String s = "";
       String binary = hexToBinary(flagHex);
@@ -109,6 +122,51 @@ public class IPv4 extends Protocole{
       return s;
    }
 
+   private String getIP(int begin){
+      return  hexToDec(get(begin++))+"."+hexToDec(get(begin++))+"."+hexToDec(get(begin++))+"."+hexToDec(get(begin++));
+   }
+
+   public void setOption(){
+      int lengthOption=lengthTotal-20;
+      int i=0;
+      while(i<lengthOption){
+         System.out.println(i +" "+ lengthOption);
+         // 1001
+         String write="\t\t";
+         String type = get(20+i);
+         if(type.equalsIgnoreCase("01"))write+="NOP : ";
+         if(type.equalsIgnoreCase("44"))write+="TS : ";
+         if(type.equalsIgnoreCase("83"))write+="LSR : ";
+         if(type.equalsIgnoreCase("89"))write+="SSR : ";
+         i++;
+         int length = hexToDec(get(20+i));
+         i++;
+         if(type.equalsIgnoreCase("07")){
+            write+="RR : \n";
+            int j=1;
+            while(4*j<length){
+               write+= "\t\t\tRouteur "+j+" : "+getIP(i+(j*4));
+               if(4*(j+1)<length){
+                  write+="\n";
+               }
+               j++;
+            }
+         }
+         else{
+            if(type.equalsIgnoreCase("00")){
+               write+="EOOL!\n";
+               options.add(write);
+               break;
+            }
+            write+="0x"+get(20+i,20+length-2);
+         }
+         i+=length-2;
+         write+="\n";
+         options.add(write);
+      }
+
+   }
+
    public String getSrc(){
       return ""+src;
    }
@@ -132,6 +190,12 @@ public class IPv4 extends Protocole{
       sb.append("\tChecksum : 0x"+checksum+"\n");
       sb.append("\tIP source : "+src+"\n");
       sb.append("\tIP destination : "+des+"\n");
+      if(options.size()>0){
+         sb.append("\tOption(s):\n");
+         for(String s : options){
+            sb.append(s);
+         }
+      }
       return sb.toString();
    }
 }
