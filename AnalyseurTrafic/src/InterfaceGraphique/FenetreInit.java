@@ -2,8 +2,6 @@ package InterfaceGraphique;
 
 import javax.swing.*;
 import java.awt.Dimension;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 public class FenetreInit extends JFrame {
     public JPanel container;
@@ -31,7 +29,6 @@ public class FenetreInit extends JFrame {
         initBtnDetails();
         initBtnStart();
         initBtnSave();
-        addResizable();
     }
 
     /*
@@ -94,30 +91,6 @@ public class FenetreInit extends JFrame {
         JOptionPane.ERROR_MESSAGE);
     }
 
-    private void addResizable(){
-        addComponentListener(
-            new ComponentAdapter(){
-            public void componentResized(ComponentEvent e){
-                h=(double)getHeight()/400.0;
-                w=(double)getWidth()/600.0;
-                btnDetail.setBounds((int)(400*w), (int)(310*h), (int)(100*w), (int)(35*h));
-                btnFind.setBounds((int)(480*w), (int)(17*h), (int)(100*w), (int)(35*h));
-                btnStart.setBounds((int)(100*w), (int)(310*h), (int)(100*w), (int)(35*h));
-                btnSave.setBounds((int)(250*w), (int)(310*h), (int)(100*w), (int)(35*h));
-                txtPath.setBounds((int)(30*w), (int)(20*h), (int)(440*w), (int)(30*h));
-                if(scrollPane!=null){
-                    if(table!=null){
-                        table.setBounds((int)(22*w), (int)(60*h), (int)(556*w), (int)(240*h));
-                    }
-                    if(txtOutput!=null){
-                        table.setBounds((int)(22*w), (int)(60*h), (int)(556*w), (int)(240*h));
-                    }
-                    scrollPane.setBounds((int)(22*w), (int)(60*h), (int)(556*w), (int)(240*h));
-                }
-            }
-        });
-    }
-
     /*
      * Enleve le chaine de caractere du path
      */
@@ -146,12 +119,12 @@ public class FenetreInit extends JFrame {
         return table;
     }
 
-    public JScrollPane getScrollPane(){
-        return scrollPane;
-    }
-
     public void setScrollPane(JScrollPane scrollPane2) {
+        if(scrollPane!=null){
+            container.remove(scrollPane);
+        }
         scrollPane=scrollPane2;
+        container.add(scrollPane);
     }
 
     public JTextArea getTxtOutput(){
@@ -170,12 +143,4 @@ public class FenetreInit extends JFrame {
         return h;
     }
 
-    public void removeScrollPaneFromeContainer(){
-        container.remove(scrollPane);
-    }
-
-    public void start(){
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
-    } 
 }
