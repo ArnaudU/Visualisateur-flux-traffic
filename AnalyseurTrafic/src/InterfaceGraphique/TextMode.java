@@ -18,6 +18,7 @@ public class TextMode {
         this.file=file;
         txtOutput = new JTextArea();
         init();
+        fenetre.setResult(txtOutput.getText());
     }
 
     /*

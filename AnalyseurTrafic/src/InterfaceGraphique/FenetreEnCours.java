@@ -7,16 +7,15 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import TraitementFichier.FileReader;
 import java.awt.event.ActionEvent;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 
 public class FenetreEnCours extends FenetreInit{
     private FileReader filereader;
-
+    
     public FenetreEnCours() {
         super();
         addAction();
-       
     }
 
     public void addAction(){
@@ -114,14 +113,24 @@ public class FenetreEnCours extends FenetreInit{
             String path = fileChooser.getSelectedFile().getAbsolutePath();
             path = getPathWithExtensionName(path, "txt");
             try{
-                BufferedWriter out = new BufferedWriter(new FileWriter(path));
-                out.write(getResult());
+                var file = new FileOutputStream(path, false);
+                var out = new PrintStream(file, false, "UTF-8");
+                out.println(getResult());
                 out.close();
+                
                 JOptionPane.showMessageDialog(this, "Success");
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Can't write in the file");
             }
         }
+    }
+
+    public void setResult(String res){
+        save=res;
+    }
+
+    public String getResult(){
+        return save;
     }
 
     public FileReader getFile() {

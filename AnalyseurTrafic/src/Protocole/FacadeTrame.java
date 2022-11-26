@@ -10,7 +10,6 @@ public class FacadeTrame {
     private IPv4 ipv4;
     private TCP tcp;
     private HTTP http;
-
     /*
      * c'est une facade de la trame qui permet de regrouper tout les protocoles;
      */
@@ -77,6 +76,22 @@ public class FacadeTrame {
         }
         String[] res = {""+i,ipv4.getSrc(),ipv4.getDest(),protocol,""+octets.size(),info};
         return res; 
+    }
+
+    public String getEssential(int i){
+        StringBuilder sb = new StringBuilder();
+        sb.append(""+i+" "+ipv4.getSrc()+" "+ipv4.getDest()+" ");
+        if(http==null){
+            sb.append("TCP ");
+            sb.append(octets.size()+" ");
+            sb.append(tcp.essential()+"\n");
+        }
+        else{
+            sb.append("HTTP ");
+            sb.append(octets.size()+" ");
+            sb.append(http.info()+"\n");
+        }
+        return sb.toString();
     }
 
     /*

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
+
 import Protocole.FacadeTrame;
 import TraitementFichier.FileReader;
 
@@ -15,12 +17,14 @@ public class TableMode{
     private FileReader file;
     JButton[] mesBoutons;
     String[][] data;
-
+    private JTextArea txt;
     public TableMode(FileReader file, FenetreEnCours fenetre){
         this.fenetre=fenetre;
         this.file=file;
         table=fenetre.getTable();
+        txt = new JTextArea();
         initTable();
+        fenetre.setResult(txt.getText());
     }
 
     /*
@@ -28,14 +32,16 @@ public class TableMode{
      */
     private void initTable(){
         try{
+            fenetre.setResult("");
             int i=1;
             data= new String[file.getOctet().size()][];
             for(ArrayList<String> octet :file.getOctet()){
-                FacadeTrame ft;
-                ft = new FacadeTrame(i,octet);
+                FacadeTrame ft = new FacadeTrame(i,octet);
                 data[i-1]=ft.getData(i);
+                txt.append(ft.getEssential(i));
                 i++;
             }
+            //System.out.println(fenetre.getResult());
             String[] title = {"No","Src","Dest","Protocol","Length","Info"};  
             table = new JTable(data,title);
             table.setEnabled(false);

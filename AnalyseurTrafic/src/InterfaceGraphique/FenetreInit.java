@@ -8,6 +8,7 @@ public class FenetreInit extends JFrame {
     public JButton btnFind;
     private JTextField txtPath;
     private JTextArea txtOutput;
+    public String save="";
     public JButton btnDetail;
     public JButton btnStart;
     public JButton btnSave;
@@ -109,10 +110,6 @@ public class FenetreInit extends JFrame {
 
     public String getPath(){
         return this.txtPath.getText();
-    }
-
-    public String getResult(){
-        return this.txtOutput.getText();
     }
 
     public JTable getTable(){
