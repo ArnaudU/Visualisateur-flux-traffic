@@ -1,7 +1,0 @@
-.Faire les options dans la classe ipv4
-.Faire les options dans la classe TCP 
-.Faire la classe HTTP
-.Ajouter le protocle http dans FacadeTrame
-.Completer la methode getData() dans la classe Facade
-.Resoudre le probleme de save lorsque l'interface est en mode essential
-.Utiliser le menubar

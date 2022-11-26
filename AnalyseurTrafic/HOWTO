@@ -1,3 +1,7 @@
 Java 7 ou plus necessaire pour executer ce programme
 Pour ce programme ecrire sur un terminal la commande suivante :
-make analyseur
+    $~make analyseur
+Lorsque la fenetre est apparu vous pourrez choisir 2 possibilite:
+    -le path du .txt à inserer dans le champs texte et puis appuyer sur le bouton decode 
+    -appuyer sur le bouton path qui affichera une nouvelle fenetre ou vous pourrez choisir le fichier
+Ensuite il y a le bouton detail qui permet d'avoir les trames beaucoup plus detaille
