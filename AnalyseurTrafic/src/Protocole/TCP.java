@@ -15,7 +15,8 @@ public class TCP extends Protocole{
     private int window;
     private String checkSum;
     private String urgentPointer;
-
+    private boolean hasNext;
+    private int len;
     public TCP(String o) {
         super(o,"TCP");
         port_src = this.hexToDec(get(0).concat(get(1)));
@@ -35,6 +36,8 @@ public class TCP extends Protocole{
         checkSum = get(16,18);
         urgentPointer = get(18);
         flag = traitementFiability();
+        hasNext();
+        len();
     }
     
     //Traite les flags dans reserved et la suite(A FINIR)
@@ -158,18 +161,32 @@ public class TCP extends Protocole{
     /*
      * Pour savoir s'il y a le protocole http  est a la suite
      */
-    public boolean hasNext(){
-        return false;
+    public void hasNext(){
+        if(HTTP.isNext(hexToasciizs(get(0,size())))){
+            if(get(size()-2,size()).equalsIgnoreCase("0d0a")){
+                hasNext=true;
+                return;
+            }
+        }
+        hasNext= false;
+    }
+
+    public boolean getHasNext(){
+        return hasNext;
+    }
+
+    private void len(){
+        len=size()-20-thl;
     }
 
     public String essential(){
         StringBuilder sb = new StringBuilder();
         sb.append(port_src + " -> " + port_dest+" " );
         sb.append("["+fiabilityContainer+"]");
-        sb.append(" Seq="+0);
-        sb.append(" Ack="+0);
+        sb.append(" Seq="+sequence);
+        sb.append(" Ack="+ack);
         sb.append(" Win="+window);
-        sb.append(" Len="+0);
+        sb.append(" Len="+len);
         return sb.toString();
     }
 

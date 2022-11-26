@@ -84,7 +84,6 @@ public class FileReader {
         for(int i =0;i<s.length;i++ ){
             octet.add(s[i]);
         }
-
     }
     
     /*

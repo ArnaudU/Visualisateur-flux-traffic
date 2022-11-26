@@ -39,13 +39,13 @@ public class FacadeTrame {
             ipv4 = new IPv4(ip);
         }
         index+=lengthIPv4;
-        //Faire pour TCP et HTTP
-        e=subList(index+1, index+20);
+        e=subList(index+1, octets.size()-1);
         tcp=new TCP(e);
         index+= tcp.getLength();
-        if(index+1<octets.size()){
+        if(tcp.getHasNext()){
             http =new HTTP(subList(index, octets.size()-1));
         }
+        
     }
 
     /*

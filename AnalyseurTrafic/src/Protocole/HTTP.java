@@ -21,16 +21,29 @@ public class HTTP extends Protocole{
         message = separateChampLigne();
         index+=2;
         requete = version + " " + codeStatut + " " + message;
-        while(!get(index, index+2).equalsIgnoreCase("0d0a")){
-            String champEntete = separateChampEspace();
-            index++;
-            String valChamp = separateChampLigne();
-            index+=2;
-            String [] ajt = {champEntete,valChamp};
-            entete.add(ajt);
+        System.out.println(requete);
+        try{
+            while(!get(index, index+2).equalsIgnoreCase("0d0a")){
+                String champEntete = separateChampEspace();
+                index++;
+                String valChamp = separateChampLigne();
+                index+=2;
+                String [] ajt = {champEntete,valChamp};
+                entete.add(ajt);
+            }
         }
+        catch(Exception e){
+
+        }
+        System.out.println("LA");
     }
 
+    public static boolean isNext(String index){
+        if(index.contains("GET") || index.contains("HTTP")){
+            return true;
+        }
+        return false;
+    }
     /*
      * Correspond au nom du champs d'entete dans les ligne d'entete
      */
@@ -53,12 +66,7 @@ public class HTTP extends Protocole{
         return res;
     }
 
-    /*
-     * Converti un hexa en un caractere ascii 
-     */
-    public String hexToasciiz(String hexStr){
-        return ""+(char)Integer.parseInt(hexStr, 16);
-    }
+    
 
     public String info(){
         return requete;

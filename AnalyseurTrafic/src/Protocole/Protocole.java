@@ -88,6 +88,20 @@ public abstract class Protocole {
         return Integer.parseInt(binary,2);
     }
 
+    /*
+     * Converti un hexa en un caractere ascii 
+     */
+    public String hexToasciiz(String hexStr){
+        return ""+(char)Integer.parseInt(hexStr, 16);
+    }
+
+    public String hexToasciizs(String hex){
+        String res="";
+        for(int i=0;i<hex.length();i+=2){
+            res+=hexToasciiz(""+hex.charAt(i)+hex.charAt(i+1));
+        }
+        return res;
+    }
     public String get(int index){
         return octets.get(index);
     }
