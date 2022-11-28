@@ -1,6 +1,9 @@
 Java 7 ou plus necessaire pour executer ce programme
-Pour ce programme ecrire sur un terminal la commande suivante :
+Pour ce programme ecrire sur un terminal la commande suivante dans le repertoire AnalyseurTrafic:
     $~make analyseur
+Si la commande make ne fonctionne pas faite dans le repertoire AnalyseurTrafic:
+    $~javac -sourcepath src -d bin ./src/protocole/*.java ./src/traitement/*.java ./src/viewer/*.java ./src/main/*.java
+	$~java -cp bin main.Main
 Lorsque la fenetre est apparu vous pourrez choisir 2 possibilite:
     -le path du .txt à inserer dans le champs texte et puis appuyer sur le bouton decode 
     -appuyer sur le bouton path qui affichera une nouvelle fenetre ou vous pourrez choisir le fichier

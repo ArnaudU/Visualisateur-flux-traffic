@@ -56,10 +56,11 @@ public class IPv4 extends Protocole{
       if(protocole.equalsIgnoreCase("06"))protocoleNom="TCP";
       if(protocole.equalsIgnoreCase("08"))protocoleNom="EGP";
       if(protocole.equalsIgnoreCase("09"))protocoleNom="IGP";
-      if(protocole.equalsIgnoreCase("17"))protocoleNom="UDP";
-      if(protocole.equalsIgnoreCase("36"))protocoleNom="XTP";
-      if(protocole.equalsIgnoreCase("46"))protocoleNom="RSVP";
+      if(protocole.equalsIgnoreCase("11"))protocoleNom="UDP";
+      if(protocole.equalsIgnoreCase("24"))protocoleNom="XTP";
+      if(protocole.equalsIgnoreCase("2e"))protocoleNom="RSVP";
       if(protocoleNom==null){
+         protocoleNom="???";
          throw new OctetInvalidException("Le type du protocol apres la couche 3(ipv4) n'existe probablement pas!");
       }
    }

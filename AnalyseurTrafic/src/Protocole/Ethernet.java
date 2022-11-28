@@ -52,6 +52,7 @@ public class Ethernet extends Protocole {
         if(typeProtocolCode.equalsIgnoreCase("0600")) typeProtocol = "XNS";
         if(typeProtocolCode.equalsIgnoreCase("8100")) typeProtocol = "VLAN";
         if(typeProtocol==null){
+            typeProtocol="???";
             throw new OctetInvalidException("Le type du protocol apres la couche 2(ethernet) n'existe pas!");
            
         }

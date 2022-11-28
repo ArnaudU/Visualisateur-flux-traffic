@@ -35,6 +35,7 @@ public class TableMode{
             fenetre.setResult("");
             int i=1;
             data= new String[file.getOctet().size()][];
+            System.out.println("La");
             for(ArrayList<String> octet :file.getOctet()){
                 FacadeTrame ft = new FacadeTrame(i,octet);
                 data[i-1]=ft.getData(i);
@@ -42,7 +43,7 @@ public class TableMode{
                 i++;
             }
             //System.out.println(fenetre.getResult());
-            String[] title = {"No","Src","Dest","Protocol","Length","Info"};  
+            String[] title = {"No","IP Src","IP Dest","Protocol","Length","Info"};  
             table = new JTable(data,title);
             table.setEnabled(false);
             table.setRowHeight(30);

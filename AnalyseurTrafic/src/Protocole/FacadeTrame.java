@@ -7,8 +7,8 @@ public class FacadeTrame {
     private ArrayList<String> octets;
     private int id;
     private Ethernet eth;
-    private IPv4 ipv4;
-    private TCP tcp;
+    private IPv4 ipv4=null;
+    private TCP tcp=null;
     private HTTP http;
     /*
      * c'est une facade de la trame qui permet de regrouper tout les protocoles;
@@ -21,31 +21,32 @@ public class FacadeTrame {
         String e = subList(index, index+13);
         index+=13;
         eth = new Ethernet(e);
-        //On verifie si la couche suivante est bien ipv4
-        if(!eth.nextIsIPv4()){
-            throw new ProtocoleInvalidException("Protocole IPv4 et non un protocole "+eth.getNextProtocol()+" pour la couche 3!");
-        }
-        // On recupere l'entete de ipv4 dans la trame puis on l'instancie(sans l'option)
-        String ip = subList(index+1, index+20);
-        ipv4 = new IPv4(ip);
-        if(!ipv4.nextIsTCP()){
-            throw new ProtocoleInvalidException("Protocole TCP et non un protocole "+ipv4.getNextProtocol()+" pour la couche 4!");
-        }
-        //On verfie s'il y a une option en regardant la longueur de l"entete ip
-        int lengthIPv4 = ipv4.getLength();
-        //Si la longueur est supérieur a 20 alors on reinstancie ipv4 avec la nouvelle taille 
-        if(lengthIPv4!=20){
-            ip= subList(index+1,index+lengthIPv4);
+        try{
+            //On verifie si la couche suivante est bien ipv4
+            if(!eth.nextIsIPv4()){
+                throw new ProtocoleInvalidException("Protocole IPv4 et non un protocole "+eth.getNextProtocol()+" pour la couche 3!");
+            }
+            // On recupere l'entete de ipv4 dans la trame puis on l'instancie(sans l'option)
+            String ip = subList(index+1, index+20);
             ipv4 = new IPv4(ip);
-        }
-        index+=lengthIPv4;
-        e=subList(index+1, octets.size()-1);
-        tcp=new TCP(e);
-        index+= tcp.getLength();
-        if(tcp.getHasNext()){
-            http =new HTTP(subList(index, octets.size()-1));
-        }
-        
+            if(!ipv4.nextIsTCP()){
+                throw new ProtocoleInvalidException("Protocole TCP et non un protocole "+ipv4.getNextProtocol()+" pour la couche 4!");
+            }
+            //On verfie s'il y a une option en regardant la longueur de l"entete ip
+            int lengthIPv4 = ipv4.getLength();
+            //Si la longueur est supérieur a 20 alors on reinstancie ipv4 avec la nouvelle taille 
+            if(lengthIPv4!=20){
+                ip= subList(index+1,index+lengthIPv4);
+                ipv4 = new IPv4(ip);
+            }
+            index+=lengthIPv4;
+            e=subList(index+1, octets.size()-1);
+            tcp=new TCP(e);
+            index+= tcp.getLength();
+            if(tcp.getHasNext()){
+                http =new HTTP(subList(index, octets.size()-1));
+            }
+        }catch(ProtocoleInvalidException e1){} 
     }
 
     /*
@@ -66,6 +67,14 @@ public class FacadeTrame {
     public String[] getData(int i){
         String protocol = "";
         String info = "";
+        if(ipv4==null){
+            String[] res = {""+i,"??","??",eth.getNextProtocol(),""+octets.size(),"Pas d'information sur cette trame"};
+            return res;
+        }
+        if(tcp==null){
+            String[] res = {""+i,ipv4.getSrc(),ipv4.getDest(),ipv4.getNextProtocol(),""+octets.size(),"Pas d'information sur cette trame" };
+            return res;
+        }
         if(http==null){
             protocol="TCP";
             info+=tcp.essential();
@@ -80,7 +89,16 @@ public class FacadeTrame {
 
     public String getEssential(int i){
         StringBuilder sb = new StringBuilder();
+        if(ipv4==null){
+            sb.append(""+i+" ? "+" ? "+" "+eth.getNextProtocol()+" "+ octets.size()+ " Pas d'information sur cette trame" );
+            return sb.toString();
+        }
+        if(tcp==null){
+            sb.append(""+i+" "+ipv4.getSrc()+" "+ipv4.getDest()+" "+ipv4.getNextProtocol()+" "+ octets.size()+ " Pas d'information sur cette trame" );
+            return sb.toString();
+        }
         sb.append(""+i+" "+ipv4.getSrc()+" "+ipv4.getDest()+" ");
+        System.out.println("La");
         if(http==null){
             sb.append("TCP ");
             sb.append(octets.size()+" ");
@@ -100,6 +118,16 @@ public class FacadeTrame {
     public String toString(){
         StringBuilder bf = new StringBuilder();
         bf.append("TRAME "+id+"\n\n"+eth.toString()+"\n"+ipv4.toString()+"\n"+tcp.toString()+"\n");
+        if(ipv4==null){
+            bf.append(eth.getNextProtocol()+"\n");
+            return bf.toString();
+        }
+        bf.append(ipv4.toString()+"\n");
+        if(tcp==null){
+            bf.append(ipv4.getNextProtocol()+"\n");
+            return bf.toString();
+        }
+        bf.append(tcp.toString()+"\n");
         if(http!=null){
             bf.append(http.toString());
         }

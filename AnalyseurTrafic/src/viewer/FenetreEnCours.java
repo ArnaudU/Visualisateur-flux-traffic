@@ -6,8 +6,11 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import traitement.FileReader;
+import traitement.FormatInvalidException;
+
 import java.awt.event.ActionEvent;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 
 @SuppressWarnings("serial")
@@ -16,35 +19,33 @@ public class FenetreEnCours extends FenetreInit{
     
     public FenetreEnCours() {
         super();
-        addAction();
+        try{
+            addAction();
+        }
+        catch(Exception e){
+            createError("Erreur de fichier?");
+        }
     }
 
     public void addAction(){
         btnFind.addActionListener(e -> {
-            try {
-                pathButton(e);
-            } catch (Exception e1) {
-                createError(e1.getMessage());
-            }
+                try {
+                    pathButton(e);
+                } catch (IOException | FormatInvalidException e1) {
+                    createError(e1.getMessage());
+                }
         });
-        btnStart.addActionListener(e -> {
+        btnStart.addActionListener(e ->{
             try {
                 startButton(e);
-            } catch (Exception e1) {
+            } catch (IOException | FormatInvalidException e1) {
                 createError(e1.getMessage());
-            }
-        });
+            }});
         btnSave.addActionListener(this::saveButton);
-        btnDetail.addActionListener(e -> {
-            try {
-                detailsButton(e);
-            } catch (Exception e1) {
-                createError(e1.getMessage());
-            }
-        });
+        btnDetail.addActionListener(e -> {detailsButton(e);});
     }
 
-    private void pathButton(ActionEvent e) throws Exception {
+    private void pathButton(ActionEvent e) throws IOException, FormatInvalidException  {
         //JOptionPane.showMessageDialog(null, "Ton message");
         JFileChooser fileChooser = new JFileChooser();
         //file name filter
@@ -65,7 +66,7 @@ public class FenetreEnCours extends FenetreInit{
         new TextMode(file, this);
     }
 
-    private void startButton(ActionEvent e) throws Exception{
+    private void startButton(ActionEvent e) throws IOException, FormatInvalidException {
         String path = getPath();
         if(!path.isEmpty()){
             //clearOutput(); 
@@ -77,7 +78,7 @@ public class FenetreEnCours extends FenetreInit{
         }
 }
 
-    private void detailsButton(ActionEvent e) throws Exception{
+    private void detailsButton(ActionEvent e){
         if(btnDetail.getText().equals("Details")){
             if(filereader!=null){
                 if(getTxtOutput()!=null){
@@ -150,5 +151,4 @@ public class FenetreEnCours extends FenetreInit{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
-
 }

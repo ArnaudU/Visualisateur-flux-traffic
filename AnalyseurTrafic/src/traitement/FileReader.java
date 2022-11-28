@@ -74,6 +74,9 @@ public class FileReader {
             }
             ligne++;
         }
+        if(octet.size()==0){
+            throw new FormatInvalidException("Le fichier est vide...");
+        }
         //Ici on enleve les espaces engendre par le dernier octet
         String lastListOctet=octet.get(octet.size()-1);
         while(lastListOctet.charAt(lastListOctet.length()-1)==' '){
