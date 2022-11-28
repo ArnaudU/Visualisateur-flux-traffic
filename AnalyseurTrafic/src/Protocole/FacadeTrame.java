@@ -1,4 +1,4 @@
-package Protocole;
+package protocole;
 
 import java.util.ArrayList;
 

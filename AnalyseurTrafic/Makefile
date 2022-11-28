@@ -1,3 +1,3 @@
 analyseur:
-		javac -sourcepath ./src -d bin ./src/Main/*.java ./src/Protocole/*.java ./src/TraitementFichier/*.java ./src/Main/*.java ./src/InterfaceGraphique/*.java
-		java -cp bin src/Main/Main.java
+                javac -sourcepath src -d bin ./src/protocole/*.java ./src/traitement/*.java ./src/viewer/*.java ./src/main/*.java
+                java -cp bin main.Main

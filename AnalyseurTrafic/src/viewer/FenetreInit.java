@@ -1,8 +1,9 @@
-package InterfaceGraphique;
+package viewer;
 
 import javax.swing.*;
 import java.awt.Dimension;
 
+@SuppressWarnings("serial")
 public class FenetreInit extends JFrame {
     public JPanel container;
     public JButton btnFind;

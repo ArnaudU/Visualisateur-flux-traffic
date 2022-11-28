@@ -1,6 +1,6 @@
-package Main;
+package main;
 
-import InterfaceGraphique.FacadeGraphique;
+import viewer.FacadeGraphique;
 
 public class Main {
     public static void main(String[] args) {

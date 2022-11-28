@@ -1,4 +1,4 @@
-package InterfaceGraphique;
+package viewer;
 
 import java.util.ArrayList;
 import javax.swing.JButton;
@@ -6,8 +6,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 
-import Protocole.FacadeTrame;
-import TraitementFichier.FileReader;
+import traitement.FileReader;
+import protocole.FacadeTrame;
 
 
 public class TableMode{

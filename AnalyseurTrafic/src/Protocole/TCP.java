@@ -1,4 +1,4 @@
-package Protocole;
+package protocole;
 
 public class TCP extends Protocole{
 

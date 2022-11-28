@@ -1,4 +1,4 @@
-package InterfaceGraphique;
+package viewer;
 
 public class FacadeGraphique {
     public FacadeGraphique(){

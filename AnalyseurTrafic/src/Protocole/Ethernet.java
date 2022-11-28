@@ -1,4 +1,4 @@
-package Protocole;
+package protocole;
 
 /**
  * Classe de representation d'une entete Ethernet

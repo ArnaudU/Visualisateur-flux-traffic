@@ -1,4 +1,4 @@
-package TraitementFichier;
+package traitement;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;

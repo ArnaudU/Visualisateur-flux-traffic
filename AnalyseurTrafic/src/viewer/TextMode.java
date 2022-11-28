@@ -1,11 +1,11 @@
-package InterfaceGraphique;
+package viewer;
 
 import java.awt.Font;
-import TraitementFichier.FileReader;
+import traitement.FileReader;
 import java.util.ArrayList;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import Protocole.FacadeTrame;
+import protocole.FacadeTrame;
 
 public class TextMode {
     

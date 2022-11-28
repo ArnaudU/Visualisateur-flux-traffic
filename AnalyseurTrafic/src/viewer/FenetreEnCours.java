@@ -1,15 +1,16 @@
-package InterfaceGraphique;
-
+package viewer;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import TraitementFichier.FileReader;
+
+import traitement.FileReader;
 import java.awt.event.ActionEvent;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 
+@SuppressWarnings("serial")
 public class FenetreEnCours extends FenetreInit{
     private FileReader filereader;
     
@@ -113,8 +114,8 @@ public class FenetreEnCours extends FenetreInit{
             String path = fileChooser.getSelectedFile().getAbsolutePath();
             path = getPathWithExtensionName(path, "txt");
             try{
-                var file = new FileOutputStream(path, false);
-                var out = new PrintStream(file, false, "UTF-8");
+                FileOutputStream file = new FileOutputStream(path, false);
+                PrintStream out = new PrintStream(file, false, "UTF-8");
                 out.println(getResult());
                 out.close();
                 
