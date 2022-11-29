@@ -21,7 +21,6 @@ public class HTTP extends Protocole{
         message = separateChampLigne();
         index+=2;
         requete = version + " " + codeStatut + " " + message;
-        System.out.println(requete);
         try{
             while(!get(index, index+2).equalsIgnoreCase("0d0a")){
                 String champEntete = separateChampEspace();
@@ -35,7 +34,6 @@ public class HTTP extends Protocole{
         catch(Exception e){
 
         }
-        System.out.println("LA");
     }
 
     public static boolean isNext(String index){

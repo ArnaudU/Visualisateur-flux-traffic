@@ -16,7 +16,7 @@ import java.io.PrintStream;
 @SuppressWarnings("serial")
 public class FenetreEnCours extends FenetreInit{
     private FileReader filereader;
-    
+    private TableMode table;
     public FenetreEnCours() {
         super();
         try{
@@ -42,7 +42,7 @@ public class FenetreEnCours extends FenetreInit{
                 createError(e1.getMessage());
             }});
         btnSave.addActionListener(this::saveButton);
-        btnDetail.addActionListener(e -> {detailsButton(e);});
+        btnFiltre.addActionListener(e -> {filtreButton(e);});
     }
 
     private void pathButton(ActionEvent e) throws IOException, FormatInvalidException  {
@@ -58,50 +58,21 @@ public class FenetreEnCours extends FenetreInit{
         }
     }
 
-    private void createTable(FileReader file){
-        new TableMode(file, this);
-    }
-
-    private void createDetails(FileReader file){
-        new TextMode(file, this);
-    }
-
     private void startButton(ActionEvent e) throws IOException, FormatInvalidException {
         String path = getPath();
         if(!path.isEmpty()){
-            //clearOutput(); 
             filereader = new FileReader(path);
-            createTable(filereader);
+            table = new TableMode(filereader, this);
+            txtFilter.setEditable(true);
         }
         else{
             createError("File path - Error");
         }
 }
 
-    private void detailsButton(ActionEvent e){
-        if(btnDetail.getText().equals("Details")){
-            if(filereader!=null){
-                if(getTxtOutput()!=null){
-                    clearOutput();
-                }
-                createDetails(filereader);
-                btnDetail.setText("Essential");
-            }
-            else{
-                createError("Select a File first of all");
-            }
-        }
-
-        else{
-            if(btnDetail.getText().equals("Essential")){
-                if(filereader!=null){
-                    createTable(filereader);
-                    btnDetail.setText("Details");
-                }
-                else{
-                    createError("Select a File first of all");
-                }
-            }
+    private void filtreButton(ActionEvent e){
+        if(table!=null){
+            table.filtreButton(e);
         }
     }
 

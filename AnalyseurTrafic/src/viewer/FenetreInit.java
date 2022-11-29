@@ -8,13 +8,11 @@ public class FenetreInit extends JFrame {
     public JPanel container;
     public JButton btnFind;
     private JTextField txtPath;
+    protected JTextField txtFilter;
     private JTextArea txtOutput;
     public String save="";
-    public JButton btnDetail;
-    public JButton btnStart;
-    public JButton btnSave;
+    public JButton btnFiltre, btnStart, btnSave, btnSaveDetail;
     public JTable table;
-    JMenuBar menu;
     private JScrollPane scrollPane;
     private Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
     private final double WIDTH = dimension.getWidth()/1.25;
@@ -28,7 +26,7 @@ public class FenetreInit extends JFrame {
         initWindow();
         initInputTextFiled();
         initBtnPath();
-        initBtnDetails();
+        initBtnFiltrer();
         initBtnStart();
         initBtnSave();
     }
@@ -51,8 +49,12 @@ public class FenetreInit extends JFrame {
      */
     private void initInputTextFiled(){
         txtPath = new JTextField();
+        txtFilter = new JTextField();
         txtPath.setBounds((int)(30*w), (int)(20*h), (int)(440*w), (int)(30*h));
+        txtFilter.setBounds((int)(100*w), (int)(78*h), (int)(300*w), (int)(20*h));
+        txtFilter.setEditable(false);
         container.add(txtPath);
+        container.add(txtFilter);
     }
 
     /*
@@ -65,11 +67,11 @@ public class FenetreInit extends JFrame {
         container.add(btnFind);
     }
 
-    private void initBtnDetails(){
-        btnDetail = new JButton();
-        btnDetail.setBounds((int)(400*w), (int)(310*h), (int)(100*w), (int)(35*h));
-        btnDetail.setText("Details");
-        container.add(btnDetail);
+    private void initBtnFiltrer(){
+        btnFiltre = new JButton();
+        btnFiltre.setBounds((int)(480*w), (int)(70*h), (int)(100*w), (int)(35*h));
+        btnFiltre.setText("Filtrer");
+        container.add(btnFiltre);
     }
 
     private void initBtnStart(){
@@ -80,6 +82,10 @@ public class FenetreInit extends JFrame {
     }
 
     private void initBtnSave(){
+        btnSaveDetail = new JButton();
+        btnSaveDetail.setBounds((int)(400*w), (int)(310*h), (int)(100*w), (int)(35*h));
+        btnSaveDetail.setText("Save Details");
+        container.add(btnSaveDetail);
         btnSave = new JButton();
         btnSave.setBounds((int)(250*w), (int)(310*h), (int)(100*w), (int)(35*h));
         btnSave.setText("Save");
@@ -113,9 +119,15 @@ public class FenetreInit extends JFrame {
         return this.txtPath.getText();
     }
 
+    public String getFilter(){
+        return this.txtFilter.getText();
+    }
+
     public JTable getTable(){
         return table;
     }
+
+    
 
     public void setScrollPane(JScrollPane scrollPane2) {
         if(scrollPane!=null){
@@ -140,5 +152,4 @@ public class FenetreInit extends JFrame {
     public double getH(){
         return h;
     }
-
 }

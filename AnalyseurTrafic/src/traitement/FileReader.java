@@ -92,20 +92,14 @@ public class FileReader {
     /*
     Permet de tester si la liste d'octet est en hexadecimal et n'est pas falsifier
      */
-    private void checkOctet(){
+    private void checkOctet() throws FormatInvalidException{
         int ligne=1;
         int oc=1;
         for(ArrayList<String> octet : octets){
             for(String str: octet){
                 for(String o : str.split(" ")){
-                    try{
-                        if(!checkHexa(o,ligne)){
-                            throw new FormatInvalidException("Les octets sont falsifie a la ligne "+ligne+ " a l'octet "+oc);
-                        }
-                    }
-                    catch(FormatInvalidException e) {
-                        System.out.println(e.getMessage());
-                        System.exit(0);
+                    if(!checkHexa(o,ligne)){
+                        throw new FormatInvalidException("Les octets sont falsifie a la ligne "+ligne+ " a l'octet "+oc);
                     }
                     oc++;
                 }

@@ -98,7 +98,6 @@ public class FacadeTrame {
             return sb.toString();
         }
         sb.append(""+i+" "+ipv4.getSrc()+" "+ipv4.getDest()+" ");
-        System.out.println("La");
         if(http==null){
             sb.append("TCP ");
             sb.append(octets.size()+" ");
@@ -117,14 +116,20 @@ public class FacadeTrame {
      */
     public String toString(){
         StringBuilder bf = new StringBuilder();
-        bf.append("TRAME "+id+"\n\n"+eth.toString()+"\n"+ipv4.toString()+"\n"+tcp.toString()+"\n");
+        bf.append("TRAME "+id+"\n\n"+eth.toString()+"\n");
         if(ipv4==null){
-            bf.append(eth.getNextProtocol()+"\n");
+            bf.append("Protocole :"+ eth.getNextProtocol()+"\n\tInformation non disponible\n");
+            bf.append("\n");
+            bf.append("-----------------------------------------------------------------------------------------------------------");
+            bf.append("\n\n");
             return bf.toString();
         }
         bf.append(ipv4.toString()+"\n");
         if(tcp==null){
-            bf.append(ipv4.getNextProtocol()+"\n");
+            bf.append("Protocole :"+ eth.getNextProtocol()+"\n\tInformation non disponible\n");
+            bf.append("\n");
+            bf.append("-----------------------------------------------------------------------------------------------------------");
+            bf.append("\n\n");
             return bf.toString();
         }
         bf.append(tcp.toString()+"\n");

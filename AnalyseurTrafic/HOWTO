@@ -1,5 +1,7 @@
 Java 7 ou plus necessaire pour executer ce programme
-Pour ce programme ecrire sur un terminal la commande suivante dans le repertoire AnalyseurTrafic:
+Ce programme neccessite un /bin dans le repertoire AnalyseurTrafic assurer vous de l'avoir creer avant en faisant:
+    $~mkdir bin
+Pour executer ce programme ecrire sur un terminal la commande suivante dans le repertoire AnalyseurTrafic:
     $~make analyseur
 Si la commande make ne fonctionne pas faite dans le repertoire AnalyseurTrafic:
     $~javac -sourcepath src -d bin ./src/protocole/*.java ./src/traitement/*.java ./src/viewer/*.java ./src/main/*.java

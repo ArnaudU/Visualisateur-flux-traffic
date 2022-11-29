@@ -131,7 +131,6 @@ public class IPv4 extends Protocole{
       int lengthOption=lengthTotal-20;
       int i=0;
       while(i<lengthOption){
-         System.out.println(i +" "+ lengthOption);
          // 1001
          String write="\t\t";
          String type = get(20+i);
