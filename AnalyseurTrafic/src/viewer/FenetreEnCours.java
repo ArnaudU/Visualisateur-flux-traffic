@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import protocole.FacadeTrame;
 import traitement.FileReader;
 import traitement.FormatInvalidException;
 
@@ -12,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 
 @SuppressWarnings("serial")
 public class FenetreEnCours extends FenetreInit{
@@ -42,6 +44,7 @@ public class FenetreEnCours extends FenetreInit{
                 createError(e1.getMessage());
             }});
         btnSave.addActionListener(this::saveButton);
+        btnSaveDetail.addActionListener(this::saveButtonDetail);
         btnFiltre.addActionListener(e -> {filtreButton(e);});
     }
 
@@ -88,9 +91,38 @@ public class FenetreEnCours extends FenetreInit{
             try{
                 FileOutputStream file = new FileOutputStream(path, false);
                 PrintStream out = new PrintStream(file, false, "UTF-8");
-                out.println(getResult());
+                String[] s = getResult().split("\n");
+                for(String str: s){
+                    out.println(str);
+                }
                 out.close();
-                
+                file.close();
+                JOptionPane.showMessageDialog(this, "Success");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Can't write in the file");
+            }
+        }
+    }
+
+    private void saveButtonDetail(ActionEvent e){
+        JFileChooser fileChooser = new JFileChooser();
+        //file name filter
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Text file","txt");
+        fileChooser.setFileFilter(filter);
+        int result = fileChooser.showSaveDialog(this);
+        if(result == JFileChooser.APPROVE_OPTION){
+            String path = fileChooser.getSelectedFile().getAbsolutePath();
+            path = getPathWithExtensionName(path, "txt");
+            try{
+                FileOutputStream file = new FileOutputStream(path, false);
+                PrintStream out = new PrintStream(file, false, "UTF-8");
+                int i=1;
+                for(ArrayList<String> str: filereader.getOctet()){
+                    out.println(new FacadeTrame(i, str));  
+                    i++; 
+                }
+                out.close();
+                file.close();
                 JOptionPane.showMessageDialog(this, "Success");
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Can't write in the file");
