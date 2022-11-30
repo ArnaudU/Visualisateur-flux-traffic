@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class FileReader {
     private ArrayList<ArrayList<String>> octets= new ArrayList<>() ; // Correspond au octet dans le fichier
 
-    public FileReader(String file) throws IOException, FormatInvalidException{
+    public FileReader(String file) throws IOException, FormatInvalidException {
         readLine(file);
         checkOctet();
     }
@@ -114,7 +114,7 @@ public class FileReader {
      */
     private boolean checkHexa(String test,int ligne) throws FormatInvalidException{
         if(test.length()<=1 ){
-            throw new FormatInvalidException("Il y a un espace ou un hexa en trop de trop a la ligne "+ligne);
+            throw new FormatInvalidException("Il y a un espace ou un hexa en trop de trop a l'octet "+ligne);
         }
         char o1 = test.toLowerCase().charAt(0);
         char o2 = test.toLowerCase().charAt(1);
