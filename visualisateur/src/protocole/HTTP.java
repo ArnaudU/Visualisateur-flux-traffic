@@ -40,7 +40,7 @@ public class HTTP extends Protocole{
     }
 
     public static boolean isNext(String index){
-        if(index.contains("GET") || index.contains("HTTP")){
+        if(index.contains("GET") || index.contains("HTTP")|| index.contains("POST") || index.contains("PUT") ||index.contains("DELETE")){
             return true;
         }
         return false;
