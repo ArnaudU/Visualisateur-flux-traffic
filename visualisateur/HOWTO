@@ -3,24 +3,22 @@ Java awt est necessaire aussi pour l'application
 
 Ce programme neccessite un /bin dans le repertoire  assurer vous de l'avoir creer dans le repertoire visualisateur avant en faisant:
     $~mkdir bin
-Pour executer ce programme ecrire sur un terminal l'une des commandes suivantes(a vous de choisir) dans le repertoire visualisateur:
+Pour executer ce programme ecrire sur un terminal l'une des commandes suivantes dans le repertoire visualisateur:
     $~chmod +x visualisateur.sh
     $~./visualisateur.sh
 Ou bien:
     $~make visualisateur
 Si la commande make ne fonctionne pas faite dans le repertoire visualisateur:
     $~javac -sourcepath src -d bin ./src/protocole/*.java ./src/traitement/*.java ./src/viewer/*.java ./src/main/*.java
-	$~java -cp bin main.Main
-Lorsque la fenetre est apparu vous pourrez choisir 2 possibilite:
-    -le path du .txt à inserer dans le champs texte et puis appuyer sur le bouton decode 0
-    -appuyer sur le bouton path qui affichera une nouvelle fenetre ou vous pourrez choisir le fichier et affichera une erreur 
-     si le fichier est errone/tronque ou sinon affichera la table sur l'application
-
-Ensuite il y a le bouton save qui permet de sauvegarder les trames sous format txt
-Et le bouton "save details" qui permet de sauvegarder les trames detailles(comme sur wireshark) sous format txt
+    $~java -cp bin main.Main
+Lorsque la fenetre est apparu vous pourrez choisir le fichier dans le menu find puis file, puis inserer le fichier sous format HexDump ASCII
+Il est ensuite afficher un diagramme qui permet d'avoir toute les connections entre chaque protocole et un tableau affichant les détail du visualisateur de chaque trame
+Ensuite dans le menu save:
+-Il y a le sous-menu save qui permet de sauvegarder les trames sous format txt comme le tableau 
+-Et le sous-menu "save details" qui permet de sauvegarder les trames detailles(comme sur wireshark) sous format txt
 
 Concernant le filtre, on peut l'utiliser en indicant dans le champs a gauche du bouton filtre ceux que l'on veut filtre,on peux filtrer seulement:
-    -le protocole 
+    -les protocoles principaux(ce qui est affiche sur le tableau)
     -l'addresse ip source 
     - on peut combiner en faisant un "&&" ou "||" qui permet respectivement de faire un "et logique" et un "ou logique"
 Voici un exemple:
