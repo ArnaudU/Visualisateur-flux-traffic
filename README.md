@@ -1,10 +1,9 @@
-# ProjetLU3IN033
+# Projet Logiciel Réseau : Le Visualisateur de flux de Traffic réalisé en 2022
 
-Ce projet a pour but de creer un analyseur de traffic avec une trame sous un fichier en format txt.
-Ce fichier doit pouvoir comprendre la liste des protocoles suivant:
-- Couche 2: Ethernet
-- Couche 3: IPv4
-- Couche 4: TCP
-- Couche 7: HTTP
+## Objectif 
+L'objectif du projet et de créer un visualisateur de flux de traffic au sein d'un réseau. Pour cela on passe en entrée un fichier contenant, en hexadécimale, la liste des flux de traffic capturé par la machine. On pourra ainsi visualisé les flux traffic TCP/IP.
 
-Le dossier Analysateur de traffic contient tout notre projet.
+## Utilisation
+
+
+
