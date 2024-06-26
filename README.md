@@ -5,5 +5,4 @@ L'objectif du projet et de créer un visualisateur de flux de traffic au sein d'
 
 ## Utilisation
 
-
-
+Il faut lancer le script visualisateur.sh avec le fichier binaire en argument.
